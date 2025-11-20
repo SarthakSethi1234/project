@@ -8,3 +8,10 @@ class ResearchEvidence(TypedDict):
     content: str
     url: Optional[str]
     metadata: Optional[Dict[str, Any]]
+
+class SentimentAnalysis(TypedDict):
+    positive_topics: List[str]
+    negative_topics: List[str]
+    rating_distribution: Dict[str, int]
+    average_rating: float
+    total_reviews: int
