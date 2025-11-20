@@ -15,3 +15,14 @@ class SentimentAnalysis(TypedDict):
     rating_distribution: Dict[str, int]
     average_rating: float
     total_reviews: int
+    
+class AgentState(TypedDict):
+    product_link: str
+    product_query: str
+    research_evidence: Annotated[List[ResearchEvidence], operator.add]
+    reviews_analysis: Optional[SentimentAnalysis]
+    final_report: Optional[str]  # Markdown-formatted report string
+
+    # Conversation state
+    messages: Annotated[List[BaseMessage], add_messages]
+    summary: str
