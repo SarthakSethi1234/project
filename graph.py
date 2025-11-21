@@ -28,3 +28,28 @@ research_builder.add_edge("researcher_reddit", END)
 research_builder.add_edge("researcher_web", END)
 
 research_subgraph = research_builder.compile()
+
+# for a new chat go to link parser for a continued chat go to chat node
+def route_start(state: AgentState):
+    if state.get("messages") and len(state["messages"]) > 0:
+        return "chat_node"
+    return "parse_link"
+
+
+def check_parser_success(state: AgentState):
+    if state.get("product_query"):
+        return "success"
+    return "fail"
+
+
+def route_chat(state: AgentState):
+    messages = state.get("messages", [])
+    last_message = messages[-1]
+
+    if hasattr(last_message, "tool_calls") and len(last_message.tool_calls) > 0:
+        return "tools"
+
+    if len(messages) > 5:
+        return "summarize"
+
+    return "end"
