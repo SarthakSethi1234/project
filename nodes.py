@@ -177,3 +177,90 @@ def harvest_reviews(state: AgentState) -> Dict[str, Any]:
     except Exception as e:
         print(f"Error in harvesting reviews: {e}")
         return {"reviews_analysis": None}
+
+def generate_report(state: AgentState) -> Dict[str, Any]:
+    """Generates the final markdown-formatted report using LLM."""
+    print("--- Generating Report ---")
+
+    llm = get_llm()
+
+    evidence_text = "\n".join([f"[{e['source']}] {e['content']}" for e in state['research_evidence']])
+    analysis_text = json.dumps(state.get("reviews_analysis") or {})
+
+    prompt = ChatPromptTemplate.from_template(
+        """You are a product research analyst. Generate a comprehensive, concise, evidence-based product report for '{product}'.
+
+            Use the following structure:
+
+            1. Product Summary
+            Product Name: [Extract from evidence]
+            Category: [Determine category]
+            Overall Verdict: 2–3 sentence summary describing usefulness, value, and tradeoffs.
+
+            2. Key Insights
+            Strengths: [List 3–5 key strengths based on evidence]
+            Weaknesses: [List 3–5 key weaknesses]
+            Most Mentioned Issues: [List 2–4 frequently mentioned problems]
+
+            3. Ratings Snapshot
+            Average Rating: [X.X / 5.0]
+            Total Reviews Analyzed: [Number]
+            Rating Distribution: 5★: X% | 4★: X% | 3★: X% | 2★: X% | 1★: X%
+
+            4. Source Breakdown
+            Amazon/E-commerce: top praises, complaints, patterns
+            Reddit: community sentiment, frequent pain points, notable insights
+            Web/Expert reviews: expert impressions, long-term notes
+
+            5. Supporting Evidence
+            Include 5–8 verbatim quotes from the evidence in this format:
+            [Source – context] "Exact quote"
+
+            6. Recommendation
+            Best For: [3–4 specific user types]
+            Avoid If: [3–4 scenarios]
+
+            7. Confidence Score
+            Analysis Confidence: [X%]
+            Based on evidence strength, diversity, and reliability
+            Data Summary: Number of sources used: Amazon: [X], Reddit: [Y], Web: [Z]
+
+            Instructions:
+            Follow the structure exactly.
+            Only use provided evidence.
+            Be concise, clear, and data-driven.
+            Do not fabricate information.
+            Keep the report informative and actionable.
+
+            Evidence Input:
+            {evidence}
+
+            Sentiment Analysis:
+            {analysis}"""
+    )
+
+    chain = prompt | llm
+
+    res = chain.invoke({
+        "product": state["product_query"],
+        "evidence": evidence_text[:20000],
+        "analysis": analysis_text
+    })
+
+    report = res.content.strip()
+
+    # Clean markdown code blocks if present
+    if report.startswith("```markdown"):
+        report = report[11:]
+    elif report.startswith("```"):
+        report = report[3:]
+    if report.endswith("```"):
+        report = report[:-3]
+
+    report = report.strip()
+
+    return {
+        "final_report": report,
+        "messages": [AIMessage(content=report)]
+    }
+
