@@ -91,3 +91,36 @@ def fallback_title_extractor(state: AgentState) -> Dict[str, Any]:
     if not guess:
         guess = "Product from URL"
     return {"product_query": guess}
+
+# Research Subgraph Nodes
+
+# This is the core search function used by all three researchers (Amazon, Reddit, Web). It uses the Tavily API to find relevant information about the product.
+def perform_search(query: str, source_type: str) -> List[ResearchEvidence]:
+    """Performs search and returns list of ResearchEvidence."""
+
+    tavily = get_tavily()
+
+    search_query = query
+    if source_type == "amazon":
+        # Targets verified feedback, specs, and direct comparisons
+        search_query += " 'verified purchase' review 'pros and cons' features technical specifications price comparison"
+
+    elif source_type == "reddit":
+        # Targets community consensus, common issues, and real usage
+        search_query += " site:reddit.com discussion 'is it worth it' issues solved 'long term review' complaints"
+
+    elif source_type == "web":
+        # Targets expert analysis, benchmarks, and deep-dives
+        search_query += " 'in-depth review' benchmarks 'hands-on' alternatives 'vs' blog transcript"
+
+    results = tavily.search(query=search_query, search_depth="advanced", max_results=5)
+
+    evidence = []
+    for res in results.get("results", []):
+        evidence.append(ResearchEvidence(
+            source=source_type,
+            content=res.get("content", ""),
+            url=res.get("url", ""),
+            metadata={"title": res.get("title", "")}
+        ))
+    return evidence
