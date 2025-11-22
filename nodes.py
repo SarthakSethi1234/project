@@ -75,3 +75,19 @@ def parse_link(state: AgentState) -> Dict[str, Any]:
 
     print(f"Identified Product: {product_name}")
     return {"product_query": product_name}
+
+def fallback_title_extractor(state: AgentState) -> Dict[str, Any]:
+    """This node is a backup plan if parse_link() fails to extract the product name. It tries to guess the product name from the URL structure itself."""
+    link = state["product_link"]
+
+    # Extracts the Amazon ASIN (product ID) an does some crazy string parsing to get the product name which I don't understand.
+    if "amazon" in link and "/dp/" in link:
+        parts = link.split("/dp/")
+        if len(parts) > 1:
+            guess = parts[1].split("/")[0].split("?")[0]
+            return {"product_query": f"Amazon Product {guess}"}
+
+    guess = link.split("/")[-1].replace("-", " ").replace("_", " ").split("?")[0]
+    if not guess:
+        guess = "Product from URL"
+    return {"product_query": guess}
