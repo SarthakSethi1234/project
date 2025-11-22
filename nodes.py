@@ -264,3 +264,40 @@ def generate_report(state: AgentState) -> Dict[str, Any]:
         "messages": [AIMessage(content=report)]
     }
 
+# Chat Nodes & Persistence Stage
+
+def chat_node(state: AgentState) -> Dict[str, Any]:
+    """Answers user questions based on the generated report and web search."""
+    llm = get_llm()
+
+    # Define tools
+    tools = [TavilySearchResults(max_results=3)]
+    llm_with_tools = llm.bind_tools(tools)
+
+    report = state.get("final_report", "No report available.")
+    summary = state.get("summary", "")
+
+    system_msg = f"""You are a helpful product research assistant. 
+    You have generated a detailed report about a product. 
+    Answer the user's follow-up questions based on this report.
+
+    If the user asks for information NOT in the report (like current price, new models, or specific details), 
+    use the 'tavily_search_results_json' tool to find the answer.
+
+    Report Content:
+    {report}
+
+    Conversation Summary:
+    {summary}
+    """
+
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_msg),
+        MessagesPlaceholder(variable_name="messages"),
+    ])
+
+    chain = prompt | llm_with_tools
+    response = chain.invoke({"messages": state["messages"]})
+
+    return {"messages": [response]}
+
