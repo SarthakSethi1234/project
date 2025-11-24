@@ -24,11 +24,11 @@ The first purpose of the capstone project is to give a chance to revise all the 
 
 # Project report Template
 
-## Title: [Product Researcher]
+## Title: Product Researcher Agent
 
 ## Overview
 
-For this project, I built a **Product Research Agent**—basically, an AI tool that does the heavy lifting of online shopping research for me. You just give it a product link, and it goes off to scour the web. It looks at the product page, checks Amazon reviews, digs through Reddit threads for real opinions, and searches the wider web for blog posts or videos. Basically, it does all the tedious and irritating work of researching about a product.
+For this project, I built a **Product Research Agent** which is basically, an AI tool that does the heavy lifting of online shopping research for me. You just give it a product link, and it goes off to scour the web. It looks at the product page, checks Amazon reviews, digs through Reddit threads for real opinions, and searches the wider web for blog posts or videos. Basically, it does all the tedious and irritating work of researching about a product.
 
 Once it has all that info, it puts together a neat, easy-to-read report with the pros, cons, and a final verdict. My initial plan was to just end the project here i.e. the report generation will be the last output but I went ahead and also added a chat feature so that the user can ask up follow up questions about the product and it answers based on what it found on the web and the report it compiled. It's designed to save anyone from opening 50 tabs and go though hundereds and thousands of reviews to find out what a product is like. 
 
@@ -100,6 +100,23 @@ The reason for my satisfaction is that the final application is a genuinely usef
 
 Overall, I'm pretty satisfied with what I made. It helped me revisit the topics that I learned in the duration of this course and actually implement them. I am a bit unsatisfied with the features that I have right now and maybe the simplicity of the project but I tried my best to use as many concepts as I can.
 
+**Working of the project**
+
+The landing page:
+
+![Screenshot 2025-12-02 at 12.50.39 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_TBLbtR/Screenshot%202025-12-02%20at%2012.50.39%E2%80%AFPM.png)
+
+Adding a product Link amd clicking generate report:
+
+![Screenshot 2025-12-02 at 12.51.50 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_6nVlmB/Screenshot%202025-12-02%20at%2012.51.50%E2%80%AFPM.png)
+
+Generated Report
+
+![Screenshot 2025-12-02 at 12.55.24 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_PZI0lZ/Screenshot%202025-12-02%20at%2012.55.24%E2%80%AFPM.png)
+
+Asking follow up questions comparing this product with another product
+
+![Screenshot 2025-12-02 at 12.57.23 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_6tjr64/Screenshot%202025-12-02%20at%2012.57.23%E2%80%AFPM.png)
 
 ----------
 
