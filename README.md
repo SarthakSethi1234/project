@@ -104,19 +104,16 @@ Overall, I'm pretty satisfied with what I made. It helped me revisit the topics 
 
 The landing page:
 
-![Screenshot 2025-12-02 at 12.50.39 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_TBLbtR/Screenshot%202025-12-02%20at%2012.50.39%E2%80%AFPM.png)
+![Screenshot](screenshots/ss3.png)
 
 Adding a product Link amd clicking generate report:
 
-![Screenshot 2025-12-02 at 12.51.50 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_6nVlmB/Screenshot%202025-12-02%20at%2012.51.50%E2%80%AFPM.png)
-
-Generated Report
-
-![Screenshot 2025-12-02 at 12.55.24 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_PZI0lZ/Screenshot%202025-12-02%20at%2012.55.24%E2%80%AFPM.png)
+![Screenshot](screenshots/ss4.png)
 
 Asking follow up questions comparing this product with another product
 
-![Screenshot 2025-12-02 at 12.57.23 PM.png](../../../../var/folders/6d/nrcfk1zj04jb6zj0_p75ydvw0000gn/T/TemporaryItems/NSIRD_screencaptureui_6tjr64/Screenshot%202025-12-02%20at%2012.57.23%E2%80%AFPM.png)
+![Screenshot](screenshots/ss1.png)
+
 
 ----------
 
